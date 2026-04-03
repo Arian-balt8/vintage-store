@@ -19,6 +19,8 @@ incluyendo commits, ramas, pull requests y merge.
 - GitHub
 
 ## Estructura del proyecto
+
+```plain
 vintage-store/
 │
 ├── index.html
@@ -30,6 +32,7 @@ vintage-store/
 │   └── script.js
 ├── imagenes/
 └── README.md
+```
 
 ## Trabajo colaborativo
 Se utilizaron ramas para el desarrollo del proyecto:
