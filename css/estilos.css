@@ -53,6 +53,13 @@ html {
   scroll-behavior: smooth;
 }
 
+header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: var(--clr-bg);
+}
+
 body {
   background-color: var(--clr-bg);
   font-family: var(--font-body);
@@ -479,6 +486,44 @@ footer>p:last-child {
   text-align: center;
   margin-top: var(--space-md);
   margin-bottom: 0;
+}
+
+/* Animaciones base */
+.reveal,
+.reveal-left,
+.reveal-zoom,
+.reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.reveal-left {
+  transform: translateX(-40px);
+}
+
+.reveal-zoom {
+  transform: scale(0.9);
+}
+
+.reveal-up {
+  transform: translateY(60px);
+}
+
+.active {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}
+
+/* efecto pulse */
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(181, 114, 42, 0.5); }
+  70% { box-shadow: 0 0 0 12px rgba(181, 114, 42, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(181, 114, 42, 0); }
 }
 
 /* detalles responsivos */

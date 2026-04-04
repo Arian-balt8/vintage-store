@@ -1,64 +1,63 @@
-// Animación al hacer scroll
-const elements = document.querySelectorAll("section, article, .oferta-card, blockquote");
+const revealElements = document.querySelectorAll(
+  "section, article, .oferta-card, .testimonio"
+);
 
-elements.forEach((el, i) => {
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.15,
+  }
+);
+
+revealElements.forEach((el, index) => {
   if (el.classList.contains("oferta-card")) {
     el.classList.add("reveal-zoom");
-  } else if (i % 2 === 0) {
-    el.classList.add("reveal");
-  } else {
+  } else if (el.classList.contains("testimonio")) {
+    el.classList.add("reveal-up");
+  } else if (index % 2 === 0) {
     el.classList.add("reveal-left");
+  } else {
+    el.classList.add("reveal");
   }
+
+  observer.observe(el);
 });
 
-function revealOnScroll() {
-  const windowHeight = window.innerHeight;
-
-  elements.forEach((el) => {
-    const top = el.getBoundingClientRect().top;
-
-    if (top < windowHeight - 120) {
-      el.classList.add("active");
-    }
-  });
-}
-
-window.addEventListener("scroll", revealOnScroll);
-revealOnScroll();
-
-
-// Header sticky
 const header = document.querySelector("header");
 
 window.addEventListener("scroll", () => {
-  if (window.scrollY > 120) {
-    header.classList.add("sticky");
-    document.body.classList.add("with-sticky");
-  } else {
-    header.classList.remove("sticky");
-    document.body.classList.remove("with-sticky");
-  }
+  header.classList.toggle("sticky", window.scrollY > 100);
 });
 
-
-// Scroll suave
 document.querySelectorAll("nav a").forEach((link) => {
   link.addEventListener("click", (e) => {
     const href = link.getAttribute("href");
 
-    if (href && href.startsWith("#")) {
+    if (href.startsWith("#")) {
       e.preventDefault();
-      document.querySelector(href).scrollIntoView({
-        behavior: "smooth"
-      });
+
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
     }
   });
 });
 
-
-// Botón con pulse
 const heroBtn = document.querySelector(".hero a");
 
-setTimeout(() => {
-  if (heroBtn) heroBtn.classList.add("pulse");
-}, 1200);
+if (heroBtn) {
+  setTimeout(() => {
+    heroBtn.classList.add("pulse");
+  }, 1200);
+}
